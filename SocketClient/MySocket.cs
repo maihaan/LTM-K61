@@ -14,7 +14,7 @@ namespace SocketClient
         public String IP { get; set; }
         public int Cong { get; set; }
         public String NoiDung { get; set; }
-        public String KetQua { get; set; }
+        public Dictionary<int, String> KetQua { get; set; }
 
         public int NguoiGuiID { get; set; }
         public int NguoiNhanID { get; set; }
@@ -54,19 +54,49 @@ namespace SocketClient
                     // Nhan du lieu tra loi
                     byte[] traLoi = new byte[1024];
                     int dem = sk.Receive(traLoi);
-                    KetQua = Encoding.UTF8.GetString(traLoi, 0, dem);
-                    while(!KetQua.Contains("<EOF>"))
+                    String tKetQua = Encoding.UTF8.GetString(traLoi, 0, dem);
+                    while(!tKetQua.Contains("<EOF>"))
                     {
                         traLoi = new byte[1024];
                         dem = sk.Receive(traLoi);
-                        KetQua = Encoding.UTF8.GetString(traLoi, 0, dem);
+                        tKetQua += Encoding.UTF8.GetString(traLoi, 0, dem);
                     }
-                    // Cu phap ma Server gui tra cho Client: NguoiGuiID <$> NoiDung <EOF>
-                    KetQua = KetQua.Replace("\0", "");
-                    KetQua = KetQua.Substring(KetQua.Length - 5);
-                    //char[] spliter = new char[] { '<', '$', '>' };
-                    //String nguoiGui = KetQua.Split(spliter)[0];
-                    //String noiDung = KetQua.Split(spliter)[1];
+                    // Cu phap ma Server gui tra cho Client: 
+                    // NguoiGuiID <$> NoiDung <EOE> NguoiGuiID <$> NoiDung <EOE> ... <EOF>
+                    tKetQua = tKetQua.Replace("\0", "");
+                    tKetQua = tKetQua.Substring(0, tKetQua.Length - 5);
+                    if(tKetQua.Contains("<EOE>"))
+                    {
+                        // Co nhieu tin nhan
+                        String[] spliterTinNhan = new String[] { "<EOE>" };
+                        foreach (String tinNhan in tKetQua.Split(spliterTinNhan, StringSplitOptions.None))
+                        {
+                            String[] spliter = new String[] { "<$>" };
+                            String nguoiGui = tinNhan.Split(spliter, StringSplitOptions.RemoveEmptyEntries)[0];
+                            String noiDung = tinNhan.Split(spliter, StringSplitOptions.RemoveEmptyEntries)[1];
+                            KetQua.Add(int.Parse(nguoiGui), noiDung);
+                        }
+                    }
+                    else
+                    {
+                        // Co 1 tin nhan: Roi vao 3 truong hop
+                        // 0<$>0<EOF>: Khong co gi dau ma hoi
+                        // 0<$>1<EOF>: Toi da nhan duoc tin nhan va se chuyen cho nguoi nhan khi co the
+                        // NguoiGuiID <$> NoiDung <EOF>: ban co 1 tin nhan
+                        String[] spliter = new String[] { "<$>" };
+                        String nguoiGui = tKetQua.Split(spliter, StringSplitOptions.RemoveEmptyEntries)[0];
+                        String noiDung = tKetQua.Split(spliter, StringSplitOptions.RemoveEmptyEntries)[1];
+                        if (nguoiGui.Equals("0"))
+                        {
+                            if (noiDung.Equals("1"))
+                                NoiDung += "(*)"; // Tin nhan da duoc Server xu ly
+                        }
+                        else
+                        {
+                            KetQua.Add(int.Parse(nguoiGui), noiDung);
+                        }
+                    }
+
 
                     sk.Disconnect(false);
                     sk.Dispose();

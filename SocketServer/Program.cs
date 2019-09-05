@@ -5,6 +5,7 @@ using System.Text;
 
 using System.Net;
 using System.Net.Sockets;
+using System.Data;
 
 namespace SocketServer
 {
@@ -36,20 +37,65 @@ namespace SocketServer
                     data = data.Replace("\0", "");
                     data = data.Substring(0, data.Length - 5); // Loai bo <EOF>
 
-                    char[] spliter = new char[] { '<', '$', '>' };
-                    String nguoiGuiID = data.Split(spliter)[0];
-                    String nguoiNhanID = data.Split(spliter)[1];
-                    String noiDung = data.Split(spliter)[2];
+                    String[] spliter = new String[] { "<$>" };
+                    String nguoiGuiID = data.Split(spliter, StringSplitOptions.RemoveEmptyEntries)[0];
+                    String nguoiNhanID = data.Split(spliter, StringSplitOptions.RemoveEmptyEntries)[1];
+                    String noiDung = data.Split(spliter, StringSplitOptions.RemoveEmptyEntries)[2];
 
                     DataAccess da = new DataAccess();
-                    String query = "INSERT INTO tbTinNhan(NguoiGuiID, NguoiNhanID, NoiDung) Values("
-                        + nguoiGuiID + ","
-                        + nguoiNhanID + ",N'"
-                        + noiDung + "')";
+                    
 
-                    da.Write(query);
-                    byte[] traLoi = Encoding.UTF8.GetBytes(data.Length.ToString());
-                    client.Send(traLoi);
+                    // Phan loai tin nhan
+                    if(nguoiGuiID.Equals(nguoiNhanID) && noiDung.Equals("<?>"))
+                    {
+                        // Client hoi Server xem co tin nhan gi gui cho minh khong -> Server khong luu tin nhan
+                        // Server phai tim trong CSDL cac tin nhan duoc gui den cho Client
+                        String queryHoi = "SELECT * FROM tbTinNhan WHERE NguoiNhanID=" + nguoiNhanID
+                            + " AND DaDoc=0";
+                        DataTable tb = da.Read(queryHoi);
+                        if(tb != null && tb.Rows.Count > 0)
+                        {
+                            // Co tin nhan
+                            int demTN = 0;
+                            foreach(DataRow r in tb.Rows)
+                            {
+                                demTN++;
+                                // Gui tin nhan den cho Client
+                                String tinNhan = r["NguoiGuiID"].ToString() + "<$>"
+                                    + r["NoiDung"].ToString();
+                                if (demTN < tb.Rows.Count)
+                                    tinNhan += "<EOE>";
+                                else
+                                    tinNhan += "<EOF>";
+                                byte[] bufferTinNhan = Encoding.UTF8.GetBytes(tinNhan);
+                                client.Send(bufferTinNhan);
+
+                                // Cap nhat trang thai cua tin nhan la da doc
+                                String queryCapNhat = "UPDATE tbTinNhan SET DaDoc=1 Where ID=" + r["ID"].ToString();
+                                da.Write(queryCapNhat);
+                            }
+                        }
+                        else
+                        {
+                            // Khong co tin nhan
+                            String tinNhan = "0<$>0<EOF>";
+                            byte[] bufferTinNhan = Encoding.UTF8.GetBytes(tinNhan);
+                            client.Send(bufferTinNhan);
+                        }
+                    }
+                    else
+                    {
+                        // Client gui den cho mot Client khac, Server phai luu tin nhan
+                        String query = "INSERT INTO tbTinNhan(NguoiGuiID, NguoiNhanID, NoiDung, DaDoc) Values("
+                            + nguoiGuiID + ","
+                            + nguoiNhanID + ",N'"
+                            + noiDung + "', 0)";
+                        da.Write(query);
+                        String tinNhan = "0<$>1<EOF>";
+                        byte[] traLoi = Encoding.UTF8.GetBytes(tinNhan);
+                        client.Send(traLoi);
+                    }
+
                     client.Disconnect(false);
                     client.Dispose();
                 }

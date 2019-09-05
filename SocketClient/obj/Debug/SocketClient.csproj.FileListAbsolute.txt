@@ -6,3 +6,4 @@ D:\Projects\LTMK61\Socket\SocketClient\obj\Debug\SocketClient.csproj.GenerateRes
 D:\Projects\LTMK61\Socket\SocketClient\obj\Debug\SocketClient.csproj.CoreCompileInputs.cache
 D:\Projects\LTMK61\Socket\SocketClient\obj\Debug\SocketClient.exe
 D:\Projects\LTMK61\Socket\SocketClient\obj\Debug\SocketClient.pdb
+D:\Projects\LTMK61\Socket\SocketClient\bin\Debug\SocketClient.exe.config

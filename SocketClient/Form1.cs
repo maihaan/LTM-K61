@@ -46,12 +46,15 @@ namespace SocketClient
             }
 
             // Gui
-            MySocket ms = new MySocket(ip.ToString(), cong, noiDung);
+            int nguoiGuiID = int.Parse(tbNguoiGuiID.Text);
+            int nguoiNhanID = int.Parse(tbNguoiNhanID.Text);
+
+            MySocket ms = new MySocket(ip.ToString(), cong, noiDung, nguoiGuiID, nguoiNhanID);
             Boolean kq = ms.Gui();
-            if(kq)
+            if(ms.NoiDung.EndsWith("(*)"))
             {
                 tbGuiNhan.Text += "Bạn: " + noiDung + "\r\n";
-                tbGuiNhan.Text += "Server: " + ms.KetQua + "\r\n";
+                tbGuiNhan.Text += "Server: Đã nhận\r\n";
                 tbNoiDung.Text = "";
                 tbNoiDung.Focus();
             }
@@ -60,6 +63,34 @@ namespace SocketClient
                 MessageBox.Show("Gửi thất bại, bạn hãy kiểm tra lại đường truyền");                
                 return;
             }
+        }
+
+        private void tmAuto_Tick(object sender, EventArgs e)
+        {
+            // Hoi Server
+            if (tbNguoiGuiID.Text.Length == 0)
+                return;
+            try
+            {
+                int nguoiGuiID = int.Parse(tbNguoiGuiID.Text);
+                MySocket ms = new MySocket(tbIP.Text, int.Parse(tbCong.Text), "<?>", nguoiGuiID, nguoiGuiID);
+                ms.Gui();
+                // Xu ly ket qua Server tra ve
+                if (ms.KetQua != null && ms.KetQua.Count > 0)
+                {
+                    foreach (var tinNhan in ms.KetQua)
+                    {
+                        tbGuiNhan.Text += tinNhan.Key.ToString() + ": "
+                            + tinNhan.Value.ToString() + "\r\n";
+                    }
+                }
+            }
+            catch { }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            tmAuto.Start();
         }
     }
 }
