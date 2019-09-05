@@ -1,0 +1,8 @@
+D:\Projects\LTMK61\Socket\SocketClient\bin\Debug\SocketClient.exe
+D:\Projects\LTMK61\Socket\SocketClient\bin\Debug\SocketClient.pdb
+D:\Projects\LTMK61\Socket\SocketClient\obj\Debug\SocketClient.Form1.resources
+D:\Projects\LTMK61\Socket\SocketClient\obj\Debug\SocketClient.Properties.Resources.resources
+D:\Projects\LTMK61\Socket\SocketClient\obj\Debug\SocketClient.csproj.GenerateResource.cache
+D:\Projects\LTMK61\Socket\SocketClient\obj\Debug\SocketClient.csproj.CoreCompileInputs.cache
+D:\Projects\LTMK61\Socket\SocketClient\obj\Debug\SocketClient.exe
+D:\Projects\LTMK61\Socket\SocketClient\obj\Debug\SocketClient.pdb
