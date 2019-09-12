@@ -12,5 +12,12 @@ namespace SinhVienServer
         public String Email { get; set; }
         public float DiemTB { get; set; }
         public DateTime NgaySinh { get; set; }
+        public int LopID { get; set; }
+
+        public Lop GetLop()
+        {
+            BLop bl = new BLop();
+            return bl.Select("LopID=" + LopID.ToString())[0];
+        }
     }
 }
