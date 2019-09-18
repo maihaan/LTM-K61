@@ -23,21 +23,55 @@ namespace SinhVienClient
             tbEmail.Text = dgvDanhSach.SelectedRows[0].Cells["Email"].Value.ToString();
             tbDiemTB.Text = dgvDanhSach.SelectedRows[0].Cells["DiemTB"].Value.ToString();
             dpNgaySinh.Value = DateTime.Parse(dgvDanhSach.SelectedRows[0].Cells["NgaySinh"].Value.ToString());
+            btLuu.Enabled = true;
+            btXoa.Enabled = true;
         }
 
         private void btThem_Click(object sender, EventArgs e)
         {
+            // Kiem tra du lieu nguoi dung nhap tu giao dien
 
+            // Cap nhat du lieu vao csdl tu xa
+            SQLSocket sk = new SQLSocket();
+            int dem = sk.Insert(tbTen.Text, tbEmail.Text, float.Parse(tbDiemTB.Text), dpNgaySinh.Value);
+            if(dem == 1)
+            {
+                DocDL();
+                btLuu.Enabled = false;
+                btXoa.Enabled = false;
+                LamMoi();
+            }
         }
 
         private void btLuu_Click(object sender, EventArgs e)
         {
+            // Kiem tra du lieu dau vao
 
+            // Cap nhat du lieu vao CSDL
+            SQLSocket sk = new SQLSocket();
+            int dem = sk.Update(int.Parse(dgvDanhSach.SelectedRows[0].Cells["ID"].Value.ToString()),
+                tbTen.Text, tbEmail.Text, float.Parse(tbDiemTB.Text), dpNgaySinh.Value);
+            if (dem == 1)
+            {
+                DocDL();
+                btLuu.Enabled = false;
+                btXoa.Enabled = false;
+                LamMoi();
+            }
         }
 
         private void btXoa_Click(object sender, EventArgs e)
         {
-
+            // Cap nhat du lieu vao CSDL
+            SQLSocket sk = new SQLSocket();
+            int dem = sk.Delete(int.Parse(dgvDanhSach.SelectedRows[0].Cells["ID"].Value.ToString()));
+            if (dem == 1)
+            {
+                DocDL();
+                btLuu.Enabled = false;
+                btXoa.Enabled = false;
+                LamMoi();
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)

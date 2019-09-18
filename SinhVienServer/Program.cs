@@ -57,12 +57,15 @@ namespace SinhVienServer
                             // Select theo dieu kien
                             tb = bsv.SelectToTable(duLieu);
                         }
-                        MemoryStream ms = new MemoryStream();
-                        System.Runtime.Serialization.IFormatter fm =
-                            new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                        fm.Serialize(ms, tb);
-                        byte[] bData = ms.GetBuffer();
-                        client.Send(bData);
+                        if (tb != null && tb.Rows.Count > 0)
+                        {
+                            MemoryStream ms = new MemoryStream();
+                            System.Runtime.Serialization.IFormatter fm =
+                                new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                            fm.Serialize(ms, tb);
+                            byte[] bData = ms.GetBuffer();
+                            client.Send(bData);
+                        }
                     }
                     else if(loaiQuery.Equals("2"))
                     {

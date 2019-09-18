@@ -60,7 +60,7 @@ namespace SinhVienClient
         {
             String query = "1*";
             byte[] dlNhan = Gui(query);
-            if (dlNhan == null)
+            if (dlNhan == null || dlNhan.Length == 0)
                 return null;
             else
             {

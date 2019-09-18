@@ -1,0 +1,7 @@
+D:\Projects\LTMK61\Socket\SinhVienServer\bin\Debug\SinhVienServer.exe.config
+D:\Projects\LTMK61\Socket\SinhVienServer\bin\Debug\SinhVienServer.exe
+D:\Projects\LTMK61\Socket\SinhVienServer\bin\Debug\SinhVienServer.pdb
+D:\Projects\LTMK61\Socket\SinhVienServer\obj\Debug\SinhVienServer.csproj.CoreCompileInputs.cache
+D:\Projects\LTMK61\Socket\SinhVienServer\obj\Debug\SinhVienServer.exe
+D:\Projects\LTMK61\Socket\SinhVienServer\obj\Debug\SinhVienServer.pdb
+D:\Projects\LTMK61\Socket\SinhVienServer\obj\Debug\SinhVienServer.csprojAssemblyReference.cache
