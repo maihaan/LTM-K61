@@ -1,0 +1,9 @@
+D:\Projects\LTMK61\Socket\SinhVienClient\bin\Debug\SinhVienClient.exe
+D:\Projects\LTMK61\Socket\SinhVienClient\bin\Debug\SinhVienClient.pdb
+D:\Projects\LTMK61\Socket\SinhVienClient\obj\Debug\SinhVienClient.csprojAssemblyReference.cache
+D:\Projects\LTMK61\Socket\SinhVienClient\obj\Debug\SinhVienClient.Form1.resources
+D:\Projects\LTMK61\Socket\SinhVienClient\obj\Debug\SinhVienClient.Properties.Resources.resources
+D:\Projects\LTMK61\Socket\SinhVienClient\obj\Debug\SinhVienClient.csproj.GenerateResource.cache
+D:\Projects\LTMK61\Socket\SinhVienClient\obj\Debug\SinhVienClient.csproj.CoreCompileInputs.cache
+D:\Projects\LTMK61\Socket\SinhVienClient\obj\Debug\SinhVienClient.exe
+D:\Projects\LTMK61\Socket\SinhVienClient\obj\Debug\SinhVienClient.pdb
