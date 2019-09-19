@@ -1,0 +1,8 @@
+D:\Projects\DrawSocket\Client\bin\Debug\Client.exe
+D:\Projects\DrawSocket\Client\bin\Debug\Client.pdb
+D:\Projects\DrawSocket\Client\obj\Debug\Client.Form1.resources
+D:\Projects\DrawSocket\Client\obj\Debug\Client.Properties.Resources.resources
+D:\Projects\DrawSocket\Client\obj\Debug\Client.csproj.GenerateResource.cache
+D:\Projects\DrawSocket\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
+D:\Projects\DrawSocket\Client\obj\Debug\Client.exe
+D:\Projects\DrawSocket\Client\obj\Debug\Client.pdb

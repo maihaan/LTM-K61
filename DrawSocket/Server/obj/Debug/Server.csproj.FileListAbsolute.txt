@@ -1,0 +1,8 @@
+D:\Projects\DrawSocket\Server\bin\Debug\Server.exe
+D:\Projects\DrawSocket\Server\bin\Debug\Server.pdb
+D:\Projects\DrawSocket\Server\obj\Debug\Server.Form1.resources
+D:\Projects\DrawSocket\Server\obj\Debug\Server.Properties.Resources.resources
+D:\Projects\DrawSocket\Server\obj\Debug\Server.csproj.GenerateResource.cache
+D:\Projects\DrawSocket\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+D:\Projects\DrawSocket\Server\obj\Debug\Server.exe
+D:\Projects\DrawSocket\Server\obj\Debug\Server.pdb
